@@ -1,10 +1,12 @@
 ### Description
 [Description of Bug, Feature, Question, etc.]
 
-### Environment
-[OS Distribution and version (run "cat /etc/lsb-release")] [ARM Release Version or if cloning from git branch/commit (run "git branch" and "git log -1" to get this)]
-
 ### Log file
-[Run the rip in DEBUG mode (set in arm.yaml) and drag and drop the log file onto this comment box]
+[Contents of log files under /opt/arm/logs]
 
-[>>>>> DRAG AND DROP LOG FILE HERE <<<<<]
+### Config file
+[Contents of your /opt/arm/config file]
+
+### Environment
+[OS Distribution and version (run "cat /etc/lsb-release")]
+[ARM Release Version or if cloning from git branch/commit (run "git branch" and "git log -1" to get this)]
