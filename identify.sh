@@ -137,11 +137,22 @@ if [ "$ID_FS_TYPE" == "udf" ]; then
 
 
 elif [ -n "$ID_CDROM_MEDIA_TRACK_COUNT_AUDIO" ]; then
-	echo "identified audio" >> "$LOG"
-	abcde -d "$DEVNAME"
-    if [ "$NOTIFY_RIP" = "true" ]; then
-	    echo /opt/arm/notify.sh "\"Audio Rip: ${ID_FS_LABEL} completed from ${DEVNAME}\" \"$LOG\"" |at -M now
+	# check if this is an enhanced cd, or data cd with audio tracks (e.g. games)
+	if  [ -n "$ID_CDROM_MEDIA_TRACK_COUNT_DATA" ]; then
+		echo "identified mixed-mode cd" >> "$LOG"
+		/opt/arm/data_rip.sh "$LOG"
+		abcde -d "$DEVNAME"
+		if [ "$NOTIFY_RIP" = "true" ]; then
+		    echo /opt/arm/notify.sh "\"Mixmode-CD Rip: ${ID_FS_LABEL} completed from ${DEVNAME}\" \"$LOG\"" |at -M now
+		fi
+	else
+		echo "identified audio" >> "$LOG"
+		abcde -d "$DEVNAME"
+	    	if [ "$NOTIFY_RIP" = "true" ]; then
+		    echo /opt/arm/notify.sh "\"Audio Rip: ${ID_FS_LABEL} completed from ${DEVNAME}\" \"$LOG\"" |at -M now
+		fi
 	fi
+	
 
 elif [ "$ID_FS_TYPE" == "iso9660" ]; then
 	echo "identified data" >> "$LOG"
